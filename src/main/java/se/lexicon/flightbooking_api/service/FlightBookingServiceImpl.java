@@ -1,6 +1,7 @@
 package se.lexicon.flightbooking_api.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import se.lexicon.flightbooking_api.dto.AvailableFlightDTO;
@@ -40,7 +41,6 @@ public class FlightBookingServiceImpl implements FlightBookingService {
         FlightBooking savedFlight = flightBookingRepository.save(flight);
         return mapper.toDTO(savedFlight);
     }
-
     @Override
     public void cancelFlight(Long flightId, String passengerEmail) {
         FlightBooking flight = flightBookingRepository.findById(flightId)
@@ -53,7 +53,6 @@ public class FlightBookingServiceImpl implements FlightBookingService {
         flight.setStatus(FlightStatus.AVAILABLE);
         flightBookingRepository.save(flight);
     }
-
     @Override
     public List<AvailableFlightDTO> findAvailableFlights() {
         return flightBookingRepository.findByStatus(FlightStatus.AVAILABLE)
@@ -61,7 +60,6 @@ public class FlightBookingServiceImpl implements FlightBookingService {
                 .map(mapper::toAvailableFlightDTO)
                 .collect(Collectors.toList());
     }
-
     @Override
     public List<FlightBookingDTO> findBookingsByEmail(String email) {
         return flightBookingRepository.findByPassengerEmail(email)
@@ -69,7 +67,6 @@ public class FlightBookingServiceImpl implements FlightBookingService {
                 .map(mapper::toDTO)
                 .collect(Collectors.toList());
     }
-
     @Override
     public List<FlightListDTO> findAll() {
         return flightBookingRepository.findAll()
