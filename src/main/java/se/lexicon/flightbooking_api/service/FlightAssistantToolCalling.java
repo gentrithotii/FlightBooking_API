@@ -3,6 +3,7 @@ package se.lexicon.flightbooking_api.service;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.stereotype.Component;
 import se.lexicon.flightbooking_api.dto.AvailableFlightDTO;
+import se.lexicon.flightbooking_api.dto.BookFlightRequestDTO;
 import se.lexicon.flightbooking_api.dto.FlightBookingDTO;
 
 import java.util.List;
@@ -17,12 +18,23 @@ public class FlightAssistantToolCalling {
     }
 
     //Booking a flight
-//    public FlightBookingDTO
+    @Tool(description = "Book flight for customer")
+    public FlightBookingDTO bookFlight(long flightId, BookFlightRequestDTO flightBookingDTO) {
+        System.out.println("Book flight Function running!");
+        return flightBookingService.bookFlight(flightId, flightBookingDTO);
+    }
+
     //Cancelling a flight
-    // List of aviable flgihts
+
+    @Tool(description = "Cancel flight for customer")
+    public void cancelFlight(Long flightId, String passengerEmail) {
+        flightBookingService.cancelFlight(flightId, passengerEmail);
+    }
+
+    // List of available flights
     @Tool(description = "Fetch all available flights")
     public List<AvailableFlightDTO> getAvailableFlights() {
-        System.out.println("Hello");
+        System.out.println("Fetch all Flights running");
         return flightBookingService.findAvailableFlights();
     }
 

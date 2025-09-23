@@ -33,9 +33,8 @@ public class AiChatServiceImpl implements AiChatService {
                 .system("""
                         You are a helpful flight  assistant with the following capabilities:
                         1. Show all available flights using 'getAvailableFlights'
-                   
-                     
-         
+                        2. Book flight for customer with flight id and passenger Name and passenger Email,  using 'bookFlight'
+                        3. Cancel flight booking by flightId and passenger email
                         """)
                 .user(query)
 
