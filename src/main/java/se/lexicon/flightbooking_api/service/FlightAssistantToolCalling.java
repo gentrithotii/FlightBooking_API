@@ -31,11 +31,18 @@ public class FlightAssistantToolCalling {
         flightBookingService.cancelFlight(flightId, passengerEmail);
     }
 
-    // List of available flights
-    @Tool(description = "Fetch all available flights")
-    public List<AvailableFlightDTO> getAvailableFlights() {
-        System.out.println("Fetch all Flights running");
-        return flightBookingService.findAvailableFlights();
+    //Check bookings by email
+    @Tool(description = "Check the booking of customer by email ")
+    public List<FlightBookingDTO> findBookingsByEmailAi(String email) {
+        return flightBookingService.findBookingsByEmail(email);
     }
+
+    // List of available flights
+//    @Tool(description = "Fetch all available flights")
+//    public List<AvailableFlightDTO> getAvailableFlights() {
+//        System.out.println("Fetch all Flights running");
+//        return flightBookingService.findAvailableFlights();
+//    }
+
 
 }
