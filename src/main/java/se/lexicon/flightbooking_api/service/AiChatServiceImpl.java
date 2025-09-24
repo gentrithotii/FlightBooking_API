@@ -22,7 +22,7 @@ public class AiChatServiceImpl implements AiChatService {
     }
 
     @Override
-    public String chatMemory(final String query, final String conversationId) {
+    public String chatWithAi(final String query, final String conversationId) {
         if (query == null || conversationId == null) {
             throw new IllegalArgumentException("Query and ConversationId cannot be null");
         }
@@ -31,7 +31,8 @@ public class AiChatServiceImpl implements AiChatService {
                         You are a helpful flight  assistant with the following capabilities:
                         1. Book flight for customer with flight id and passenger Name and passenger Email,  using 'bookFlight'
                         2. Cancel flight booking by flightId and passenger email using 'cancelFlight'
-                        3. Get flight bookings by email  
+                        3. Get flight bookings by email using 'findBookingByEmailAi' 
+                        4. Get all flights using but give only the flight number and flight destination getAvailableFlights
                         
                            Guidelines:
                            - Always use the appropriate tool for flight bookings operations
@@ -40,7 +41,10 @@ public class AiChatServiceImpl implements AiChatService {
                            - Confirm successful operations with brief, clear messages
                         """).user(query)
 
-                .tools(flightAssistantToolCalling).options(OpenAiChatOptions.builder().temperature(0.2).maxTokens(1000).build()).advisors(advisorSpec -> advisorSpec.param(ChatMemory.CONVERSATION_ID, conversationId)).call().chatResponse();
+                .tools(flightAssistantToolCalling).
+                options(OpenAiChatOptions.builder().
+                        temperature(0.2).maxTokens(1000).
+                        build()).advisors(advisorSpec -> advisorSpec.param(ChatMemory.CONVERSATION_ID, conversationId)).call().chatResponse();
 
         return chatResponse.getResult().getOutput().getText();
     }

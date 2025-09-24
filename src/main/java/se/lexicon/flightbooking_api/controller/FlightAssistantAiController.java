@@ -31,6 +31,6 @@ public class FlightAssistantAiController {
                                       @NotBlank(message = "Question cannot be blank")
                                       String question) {
         System.out.println("question = " + question);
-        return ResponseEntity.ok    (aiChatService.chatMemory(question, "123"));
+        return ResponseEntity.ok    (aiChatService.chatWithAi(question, "123"));
     }
 }
