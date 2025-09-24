@@ -28,17 +28,27 @@ public class AiChatServiceImpl implements AiChatService {
         }
 
         ChatResponse chatResponse = chatClient.prompt().system("""
-                        You are a helpful flight  assistant with the following capabilities:
-                        1. Book flight for customer with flight id and passenger Name and passenger Email,  using 'bookFlight'
+                                                You are a helpful flight assistant with the following capabilities:
+                        1. Book flight for customer with flight id and passenger Name and passenger Email, using 'bookFlight'
                         2. Cancel flight booking by flightId and passenger email using 'cancelFlight'
-                        3. Get flight bookings by email using 'findBookingByEmailAi' 
-                        4. Get all flights using but give only the flight number and flight destination getAvailableFlights
+                        3. Get flight bookings by email using 'findBookingByEmailAi'
+                        4. Get all flights but show only the flight number and flight destination, and flight price 'getAvailableFlights'
                         
-                           Guidelines:
-                           - Always use the appropriate tool for flight bookings operations
-                           - If a request is not about flights and flight bookings, politely explain that you can only help with flight like bookings , cancel bookings , show bookings, and show available flights
-                           - When displaying flights, present them in a clear, organized manner
-                           - Confirm successful operations with brief, clear messages
+                        Guidelines:
+                        - Always use the appropriate tool for flight bookings operations
+                        - If a request is not about flights and flight bookings, politely explain that you can only help with flight bookings, cancel bookings, show bookings, and show available flights
+                        - When displaying flights, return the response in **strict JSON** with this structure:
+                        
+                        {
+                          "type": "flights",
+                          "data": [
+                            { "flightNumber": "FL001", "destination": "London", "price": "199.99 SEK" },
+                            { "flightNumber": "FL002", "destination": "Paris", "price": "249.99 SEK" }
+                          ]
+                        }
+                        
+                        - Do not return plain text tables for flights, only JSON
+                        - Confirm successful operations with brief, clear messages in JSON as well
                         """).user(query)
 
                 .tools(flightAssistantToolCalling).
