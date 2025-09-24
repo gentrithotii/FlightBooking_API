@@ -37,12 +37,12 @@ public class FlightAssistantToolCalling {
         return flightBookingService.findBookingsByEmail(email);
     }
 
-    // List of available flights
-//    @Tool(description = "Fetch all available flights")
-//    public List<AvailableFlightDTO> getAvailableFlights() {
-//        System.out.println("Fetch all Flights running");
-//        return flightBookingService.findAvailableFlights();
-//    }
+    //List of available flights
+    @Tool(description = "Fetch all available flights")
+    public List<AvailableFlightDTO> getAvailableFlights() {
+        System.out.println("Fetch all Flights running");
+        return flightBookingService.findAvailableFlights();
+    }
 
 
 }
